@@ -8,9 +8,10 @@
     <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
     <script>
         $(function () {
+            let applicant = ""
             // 读取数据到地图描点
             $.ajax({
-                url: "/getByApplicant",
+                url: "/applicant/" + $("#applicant").val(),
                 success: function (data) {
                     data.each(function () {
                         let x = this.x;
@@ -38,6 +39,8 @@
     </script>
 </head>
 <body>
+<label for="applicant">Applicant: </label>
+<input id="applicant"/>
 <div id="container"></div>
 </body>
 </html>

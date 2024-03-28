@@ -16,7 +16,7 @@ public class HomeController {
   @Autowired
   private FoodTruckService foodTruckService;
 
-  @RequestMapping("{applicant}")
+  @RequestMapping("/applicant/{applicant}")
   @ResponseBody
   public Object getByApplicant(@PathVariable("applicant") String applicant) throws ExecutionException {
     return foodTruckService.getByApplicant(applicant);
