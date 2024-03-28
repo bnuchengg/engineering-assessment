@@ -3,8 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Food Trucks</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
+    <script>
+        $(function () {
+            // 读取数据到地图描点
+            $.ajax({
+                url: "/getByApplicant",
+                success: function (data) {
+                    data.each(function () {
+                        let x = this.x;
+                        let y = this.y;
+                        let epsg3857Points = webPoints.map(w => vjmap.geoPoint(vjmap.transform.convert(w, vjmap.transform.CRSTypes.BD09, vjmap.transform.CRSTypes.EPSG3857)));
+                        let param = vjmap.coordTransfromGetFourParamter(epsg3857Points, cadPoints, false); // 这里考虑旋转
+                        let fourparam = [param.dx, param.dy, param.scale, param.rotate]
+
+                        const getCadWmsUrl = (transparent) => {
+                            let wmsUrl = svc.wmsTileUrl({
+                                mapid: mapId, // 地图id
+                                layers: layer, // 图层名称
+                                bbox: '', // bbox这里不需要
+                                srs: "EPSG:3857", //
+                                fourParameter: fourparam,
+                                transparent: transparent,
+                                backgroundColor: 'rgba(240, 255, 255)' // 不透明时有效
+                            })
+                            return wmsUrl
+                        }
+                    });
+                }
+            })
+        })
+    </script>
 </head>
 <body>
-
+<div id="container"></div>
 </body>
 </html>
+<script>
+    var map = new BMapGL.Map('container'); // 创建Map实例
+    map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 12); // 初始化地图,设置中心点坐标和地图级别
+    map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+</script>
