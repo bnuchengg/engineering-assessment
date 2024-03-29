@@ -12,6 +12,7 @@
             // 读取数据到地图描点
             $.ajax({
                 url: "/applicant/" + $("#applicant").val(),
+                method: "post",
                 success: function (data) {
                     data.each(function () {
                         let x = this.x;
