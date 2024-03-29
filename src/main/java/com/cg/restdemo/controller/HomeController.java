@@ -19,7 +19,7 @@ public class HomeController {
   private FoodTruckService foodTruckService;
 
   @GetMapping("")
-  public String index(@PathVariable("applicant") String applicant) throws ExecutionException {
+  public String index() throws ExecutionException {
     return "index";
   }
 

@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
     implementation group: 'com.google.guava', name: 'guava', version: '32.1.2-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
